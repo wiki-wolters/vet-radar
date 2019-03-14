@@ -1,24 +1,29 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import products from '../data/products';
-import AddIcon from '@material-ui/icons/AddCircleOutline';
+import ProductItem from './product-item';
 
 import './products.css';
 
-const Products = props => {
+const Products = ({ addProduct }) => {
   return (
     <div className="products">
       <h2>Our Products</h2>
       <ul className="list products__list">
-        {products.map(product =>
-          <li className="products__item">
-            <span className="products__item-name">{product.name}</span>
-            <span className="price products__price">${product.price.toFixed(2)}</span>
-            <AddIcon className="icon products__item-add" onClick={e => props.addProduct(product, 1)}/>
-          </li>
-        )}
+        {products.map(product => (
+          <ProductItem
+            key={product.name}
+            product={product}
+            addProduct={addProduct}
+          />
+        ))}
       </ul>
     </div>
   );
 };
+
+Products.propTypes = {
+  addProduct: propTypes.func
+}
 
 export default Products;
